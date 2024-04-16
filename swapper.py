@@ -13,7 +13,7 @@ import onnxruntime
 import numpy as np
 from PIL import Image
 from typing import List, Union, Dict, Set, Tuple
-
+import matplotlib.pyplot as plt 
 
 def getFaceSwapModel(model_path: str):
     model = insightface.model_zoo.get_model(model_path)
@@ -57,6 +57,9 @@ def swap_face(face_swapper,
     """
     paste source_face on target image
     """
+    # print("The sourcefaces are -- -- - -- " ,source_faces) 
+    # print("the targetfaces are ----- - -- -- -- - -" , target_faces )
+    print(source_index , target_index ) 
     source_face = source_faces[source_index]
     target_face = target_faces[target_index]
 
@@ -80,24 +83,37 @@ def process(source_img: Union[Image.Image, List],
     
     # read target image
     target_img = cv2.cvtColor(np.array(target_img), cv2.COLOR_RGB2BGR)
-    
+    print("Target Images shape .... " , target_img.shape )
+    plt.imshow(target_img)
     # detect faces that will be replaced in the target image
     target_faces = get_many_faces(face_analyser, target_img)
+    
     num_target_faces = len(target_faces)
     num_source_images = len(source_img)
 
+    print("target face count" , num_target_faces) 
+     
+    print(num_source_images,num_target_faces)
+    
+    source_faces = [] 
+    
+    # Get all the faces from the source images list 
+    for i in range(len(source_img)) :  
+        source_faces.extend(get_many_faces(face_analyser, cv2.cvtColor(np.array(source_img[i]), cv2.COLOR_RGB2BGR))) 
+    
     if target_faces is not None:
         temp_frame = copy.deepcopy(target_img)
         if isinstance(source_img, list) and num_source_images == num_target_faces:
             print("Replacing faces in target image from the left to the right by order")
             for i in range(num_target_faces):
-                source_faces = get_many_faces(face_analyser, cv2.cvtColor(np.array(source_img[i]), cv2.COLOR_RGB2BGR))
                 source_index = i
                 target_index = i
-
+                
+                if source_index >= len(source_faces)  : 
+                    break  
                 if source_faces is None:
                     raise Exception("No source faces found!")
-
+                
                 temp_frame = swap_face(
                     face_swapper,
                     source_faces,
