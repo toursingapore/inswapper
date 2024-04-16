@@ -57,9 +57,7 @@ def swap_face(face_swapper,
     """
     paste source_face on target image
     """
-    # print("The sourcefaces are -- -- - -- " ,source_faces) 
-    # print("the targetfaces are ----- - -- -- -- - -" , target_faces )
-    print(source_index , target_index ) 
+
     source_face = source_faces[source_index]
     target_face = target_faces[target_index]
 
@@ -83,7 +81,7 @@ def process(source_img: Union[Image.Image, List],
     
     # read target image
     target_img = cv2.cvtColor(np.array(target_img), cv2.COLOR_RGB2BGR)
-    print("Target Images shape .... " , target_img.shape )
+
     plt.imshow(target_img)
     # detect faces that will be replaced in the target image
     target_faces = get_many_faces(face_analyser, target_img)
@@ -91,9 +89,6 @@ def process(source_img: Union[Image.Image, List],
     num_target_faces = len(target_faces)
     num_source_images = len(source_img)
 
-    print("target face count" , num_target_faces) 
-     
-    print(num_source_images,num_target_faces)
     
     source_faces = [] 
     
