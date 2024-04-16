@@ -13,7 +13,7 @@ import onnxruntime
 import numpy as np
 from PIL import Image
 from typing import List, Union, Dict, Set, Tuple
-import matplotlib.pyplot as plt 
+
 
 def getFaceSwapModel(model_path: str):
     model = insightface.model_zoo.get_model(model_path)
@@ -82,7 +82,6 @@ def process(source_img: Union[Image.Image, List],
     # read target image
     target_img = cv2.cvtColor(np.array(target_img), cv2.COLOR_RGB2BGR)
 
-    plt.imshow(target_img)
     # detect faces that will be replaced in the target image
     target_faces = get_many_faces(face_analyser, target_img)
     
