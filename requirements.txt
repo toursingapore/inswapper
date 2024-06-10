@@ -17,5 +17,4 @@ yapf
 lpips
 insightface>=0.7.3
 onnxruntime
---find-links https://mirrors.aliyun.com/pypi/simple/
 tb-nightly
