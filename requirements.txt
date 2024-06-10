@@ -10,7 +10,6 @@ pyyaml
 requests
 scikit-image
 scipy
-tb-nightly
 torch>=1.7.1
 torchvision
 tqdm
@@ -18,3 +17,5 @@ yapf
 lpips
 insightface>=0.7.3
 onnxruntime
+--find-links https://mirrors.aliyun.com/pypi/simple/
+tb-nightly
